@@ -25,9 +25,7 @@ function requestRemoteData() {
     $.ajax({
              type: "get",
              async: true,
-             //url: "http://wenhe.pac.adobe.com/t.txt?adLastUpdated=" + adLastUpdated,
-             url: "https://raw.github.com/leonmaybe/js_img_test/master/data.txt?adLastUpdated=" + adLastUpdated,
-             
+             url: "http://wenhe.pac.adobe.com/t.txt?adLastUpdated=" + adLastUpdated + "&t=" + Math.random(),
              //http://wenhe.pac.adobe.com/t.jpg
              dataType: "jsonp",
              jsonp: "callback",
