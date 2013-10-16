@@ -58,7 +58,7 @@ function adHandler2 (ad, container, saveAd) {
                       can.height = img.height;
                       var ctx = can[0].getContext('2d');
                       ctx.drawImage(img[0], 0, 0, img.width, img.height);
-                      ad.url = can.toDataURL();
+                      ad.url = can[0].toDataURL();
                 
                       localStorage.adData = JSON.stringify(ad);
                       localStorage.adLastUpdated = (new Date()).getTime();            
