@@ -48,7 +48,7 @@ function requestRemoteData() {
    
 function adHandler2 (ad, container, saveAd) {
     var img = $('<img/>').attr('src',ad.url); 
-    container.append(img);
+   
     
     if(saveAd) {
           if(ad.url.indexOf('http://') > -1) {
@@ -69,6 +69,9 @@ function adHandler2 (ad, container, saveAd) {
               localStorage.adLastUpdated = (new Date()).getTime();   
           
           }
+      }
+      
+       container.append(img);
 }
 
 function clearCache() {
