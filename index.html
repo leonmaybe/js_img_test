@@ -52,7 +52,7 @@ function adHandler2 (ad, container, saveAd) {
     
     if(saveAd) {
           if(ad.url.indexOf('http://') > -1) {
-                img.onload = function(){
+                img[0].onload = function(){
                       var can = $('<canvas id="mycanvas"></canvas>');
                       can.width  = img.width;
                       can.height = img.height;
