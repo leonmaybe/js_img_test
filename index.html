@@ -53,10 +53,11 @@ function adHandler2 (ad, container, saveAd) {
     if(saveAd) {
           if(ad.url.indexOf('http://') > -1) {
                 img.onload = function(){
-                      var can = $('<canvas/>');
+                      var can = $('<canvas id="mycanvas"></canvas>');
                       can.width  = img.width;
                       can.height = img.height;
-                      ctx.drawImage(img, 0, 0, img.width, img.height);
+                      var ctx = can[0].getContext('2d');
+                      ctx.drawImage(img[0], 0, 0, img.width, img.height);
                       ad.url = can.toDataURL();
                 
                       localStorage.adData = JSON.stringify(ad);
