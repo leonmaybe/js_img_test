@@ -1,1 +1,74 @@
-put your code here
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Ad</title>
+<script type="text/javascript" src="jquery-1.5.min.js"></script>
+      <script type="text/javascript">
+
+     jQuery(document).ready(function(){ 
+       
+        var data =  localStorage.adData;
+        if (data!=null && data!= "")
+         {            
+
+            adHandler2(JSON.parse(data),$('#fromCache'));      
+         }
+        else
+        {
+            requestRemoteData();
+        }
+
+        
+     });
+
+function requestRemoteData() {
+    var adLastUpdated = parseInt(localStorage.adLastUpdated);
+    $.ajax({
+             type: "get",
+             async: true,
+             url: "http://wenhe.pac.adobe.com/t.txt?adLastUpdated=" + adLastUpdated,
+             //http://wenhe.pac.adobe.com/t.jpg
+             dataType: "jsonp",
+             jsonp: "callback",
+             jsonpCallback:"adHandler",
+             success: function(ad){
+                //TODO consider whether to use the data from cache
+
+                adHandler2(ad,$('#fromRemote'));              
+
+                localStorage.adData = JSON.stringify(ad);
+                localStorage.adLastUpdated = (new Date()).getTime();             
+             },
+             
+             error: function(data){
+                 alert('fail');
+                 alert(data);
+             }
+         });
+
+}
+   
+function adHandler2 (ad, t) {
+    var img = $('<img/>').attr('src',ad.url); 
+    t.append(img);
+}
+
+function clearCache() {
+    localStorage.removeItem('adData');
+}
+</script>
+ 
+
+</head>
+<body>
+
+<div id="fromCache"> From Cache: <br> </div>
+<br>
+<br>
+<div id="fromRemote" > From Remote: <br> </div>
+
+<div id="ops"> Clear Cache: <br> 
+    <button onclick="clearCache()">clear</button>
+</div>
+<br>
+<br>
+</body></html> 
