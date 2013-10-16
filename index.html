@@ -47,22 +47,21 @@ function requestRemoteData() {
 }
    
 function adHandler2 (ad, container, saveAd) {
-    var img = $('<img/>').attr('src',ad.url); 
+    var img=new Image();
    
     
     if(saveAd) {
           if(ad.url.indexOf('http://') > -1) {
-                img[0].onload = function(){
-                      var can = $('<canvas id="mycanvas"></canvas>');
-                      can.width  = img.width;
-                      can.height = img.height;
+                img.onload = function(){
+                      var can = $('<canvas width="'+img.width+'" height="'+img.height+'"></canvas>');
                       var ctx = can[0].getContext('2d');
-                      ctx.drawImage(img[0], 0, 0, img.width, img.height);
+                      ctx.drawImage(img, 0, 0, img.width, img.height);
                       ad.url = can[0].toDataURL();
-                
+                	    console.log(ad.url);
+
                       localStorage.adData = JSON.stringify(ad);
                       localStorage.adLastUpdated = (new Date()).getTime();            
-          
+          			
                 }
           }else {
               localStorage.adData = JSON.stringify(ad);
@@ -70,8 +69,8 @@ function adHandler2 (ad, container, saveAd) {
           
           }
       }
-      
-       container.append(img);
+      img.src = ad.url;
+      container.append(img);
 }
 
 function clearCache() {
