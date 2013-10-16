@@ -1,1 +1,4 @@
-dta
+adHandler({
+  "name":"test image",
+  "url": "http://i2.dpfile.com/pc/57f059f408fe991aaf0d674cab61b824/23076013_m.jpg"
+});
