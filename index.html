@@ -25,7 +25,9 @@ function requestRemoteData() {
     $.ajax({
              type: "get",
              async: true,
-             url: "http://wenhe.pac.adobe.com/t.txt?adLastUpdated=" + adLastUpdated,
+             //url: "http://wenhe.pac.adobe.com/t.txt?adLastUpdated=" + adLastUpdated,
+             url: "https://raw.github.com/leonmaybe/js_img_test/master/data.txt?adLastUpdated=" + adLastUpdated,
+             
              //http://wenhe.pac.adobe.com/t.jpg
              dataType: "jsonp",
              jsonp: "callback",
@@ -51,17 +53,23 @@ function adHandler2 (ad, container, saveAd) {
     container.append(img);
     
     if(saveAd) {
-          img.onload = function(){
-                var can = $('<canvas/>');
-                can.width  = img.width;
-                can.height = img.height;
-                ctx.drawImage(img, 0, 0, img.width, img.height);
-                ad.url = can.toDataURL();
+          if(ad.url.indexOf('http://') > -1) {
+                img.onload = function(){
+                      var can = $('<canvas/>');
+                      can.width  = img.width;
+                      can.height = img.height;
+                      ctx.drawImage(img, 0, 0, img.width, img.height);
+                      ad.url = can.toDataURL();
+                
+                      localStorage.adData = JSON.stringify(ad);
+                      localStorage.adLastUpdated = (new Date()).getTime();            
           
-                localStorage.adData = JSON.stringify(ad);
-                localStorage.adLastUpdated = (new Date()).getTime();            
-    
-    }
+                }
+          }else {
+              localStorage.adData = JSON.stringify(ad);
+              localStorage.adLastUpdated = (new Date()).getTime();   
+          
+          }
 }
 
 function clearCache() {
