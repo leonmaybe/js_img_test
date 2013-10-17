@@ -1,0 +1,17 @@
+
+<script type="text/javascript">
+	var apiUrl = "http://localhost/findXmlicon.xml";
+	$.get(apiUrl, function(data){
+		$(data).find('Carboform').find("ConfigList").find('Icon').each(function(index, icon){
+			var titles = $(icon).find('Iconname').text();
+			var links = $(icon).find('Url').text();
+			var image = "http://tcs2-t.trends.com.cn/icon/"+ $(icon).find('Imagename').text();
+			$("#noticecon").find('ol').append('<li><a href="'+links+'" title="'+titles+'"><img src="'+ image +'" /></a></li>');
+		})
+	});
+</script>
+
+    <div id="noticecon">
+		<ol>
+		</ol>
+	</div>
